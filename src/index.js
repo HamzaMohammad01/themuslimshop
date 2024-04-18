@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<div
-			className="bg-black dark:bg-black grid w-screen h-screen overflow-hidden"
+			className="bg-black dark:bg-black grid w-screen h-screen overflow-x-hidden"
 			style={{
 				display: "grid ",
 				gridTemplateColumns: "min-content auto",
@@ -18,7 +18,7 @@ root.render(
 			}}
 		>
 			<Navbar />
-			<div className="mx-auto flex flex-col ">
+			<div className="flex flex-col ">
 				<div className="text-primary text-5xl font-primary self-center ">
 					The Muslim Shop
 				</div>
