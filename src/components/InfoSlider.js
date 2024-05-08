@@ -3,6 +3,7 @@ import hundred_points from "../img/hundred_points.png";
 
 export default function InfoSlider({
 	text = "Muslim must-haves",
+	addClassName,
 	imageSrc = hundred_points,
 }) {
 	const data = [
@@ -19,7 +20,7 @@ export default function InfoSlider({
 		{ url: "https://source.unsplash.com/macbook-y0_vFxOHayg" },
 	];
 	return (
-		<div className="mt-10 ">
+		<div className={`${addClassName} mt-10`}>
 			{/* title */}
 			<div className="flex flex-row items-center">
 				<div className="text-primary text-6xl font-accent">{text}</div>
@@ -40,15 +41,19 @@ export default function InfoSlider({
 				className="mySwiper"
 			>
 				{data.map((e) => (
-					<swiper-slide
-						style={{ backgoundClip: "clip", marginRight: "5px" }}
-						className="border-2 border-primary w-1/4 h-1/3 rounded-xl overflow-hidden bg-clip-border"
-					>
-						<img
-							src={e.url}
-							alt=""
-							className="object-none h-96 rounded-xl"
-						/>
+					<swiper-slide className="border-2 border-primary w-1/4 h-1/3 rounded-xl bg-clip-border mr-5">
+						<div
+							style={{
+								backgoundClip: "clip",
+								marginRight: "5px",
+							}}
+						>
+							<img
+								src={e.url}
+								alt=""
+								className="object-none h-96 rounded-xl"
+							/>
+						</div>
 					</swiper-slide>
 				))}
 			</swiper-container>
