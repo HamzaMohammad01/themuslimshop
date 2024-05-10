@@ -7,6 +7,7 @@ import {
 	FaHeadset,
 	FaRegUser,
 } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
 	const iconStyle = "text-text-0 h-10 w-fit cursor-pointer";
@@ -29,13 +30,23 @@ export default function Navbar() {
 			className="border-2 rounded-2xl h-fit w-20 ml-2 flex flex-col items-center p-1 space-y-5 pt-10 fixed"
 		>
 			<FaBarsStaggered className={`${iconStyle} !mb-5`} />
-			<FaHouse className={iconStyle} />
-			<FaCartShopping className={iconStyle} />
-			<FaGear className={iconStyle} />
-			<FaHeadset className={iconStyle} />
-			<FaRegUser
-				className={`${iconStyle} border-2 p-2 rounded-xl h-16 border-primary !mt-28 `}
-			/>
+			<Link to={"/"}>
+				<FaHouse className={iconStyle} />
+			</Link>
+			<Link to={"/orders"}>
+				<FaCartShopping className={iconStyle} />
+			</Link>
+			<Link to={"/"}>
+				<FaGear className={iconStyle} />
+			</Link>
+			<Link to={"/contact"}>
+				<FaHeadset className={iconStyle} />
+			</Link>
+			<Link to={"/account"}>
+				<FaRegUser
+					className={`${iconStyle} border-2 p-2 rounded-xl h-16 border-primary !mt-28 `}
+				/>
+			</Link>
 		</div>
 	);
 }
