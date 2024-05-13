@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import moneyBag from "../img/money_bag.png";
 import Navbar from "../components/Navbar";
 
-export default function Orders() {
+export default function Cart() {
 	const [totalPrice, setTotalPrice] = useState(0);
 	const data = [
 		{
