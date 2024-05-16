@@ -1,20 +1,31 @@
-import React from "react";
-import { FaRegUser } from "react-icons/fa6";
+import React, { useEffect, useState } from "react";
+import { FaRegUser, FaRightToBracket } from "react-icons/fa6";
 import Title from "../components/Title";
 import Button from "../components/Button";
 
 import shopping_bags from "../img/shopping_bags.png";
 import lock from "../img/lock.png";
+import { getCurrentUser } from "../api/users";
 import Navbar from "../components/Navbar";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
-	const data = [
-		["Username", "HamzaMohammad01"],
-		["Email", "mohd2010hamza@gmail.com"],
-		["Total Orders", "12"],
-	];
+	const navigate = useNavigate();
+	const [data, setData] = useState();
+	useEffect(() => {
+		loadUser();
+	}, []);
+	const loadUser = async () => {
+		const token = localStorage.getItem("token");
+		if (token) {
+			const response = await getCurrentUser(token);
+			setData(response.data);
+		}
+		console.log(data);
+	};
 
-	return (
+	return data ? (
 		<>
 			<Navbar />
 
@@ -28,20 +39,38 @@ export default function Account() {
 							<FaRegUser className="text-text-0 h-3/5 w-auto" />
 						</div>
 						<div className="detailsContainer ml-10">
-							{data.map((e) => (
-								<div className="rightcol grid grid-cols-[1fr_0px_2fr] text-nowrap">
-									<div className="text1 text-text-0 mr-5 text-3xl">
-										{e[0]}
-									</div>
-									<div className="text2 text-3xl">{e[1]}</div>
+							<div className="rightcol grid grid-cols-[1fr_0px_2fr] text-nowrap">
+								<div className="text1 text-text-0 mr-5 text-3xl">
+									Name
 								</div>
-							))}
+								<div className="text2 text-3xl">
+									{data.name}
+								</div>
+							</div>
+							<div className="rightcol grid grid-cols-[1fr_0px_2fr] text-nowrap">
+								<div className="text1 text-text-0 mr-5 text-3xl">
+									Email
+								</div>
+								<div className="text2 text-3xl">
+									{data.email}
+								</div>
+							</div>
 							<div className="rightcol grid grid-cols-[1fr_0px_2fr] text-nowrap">
 								<div className="text1 text-text-0 mr-5 text-3xl">
 									Password
 								</div>
 								<Button text="Change Password" />
 							</div>
+						</div>
+						<div
+							onClick={() => {
+								navigate("/login");
+								localStorage.removeItem("token");
+							}}
+							className="buttonContainer flex items-center justify-center w-auto mt-5 text-3xl text-text-0 px-4 h-16 ml-auto mr-5 bg-primary rounded-full self-center cursor-pointer"
+						>
+							<FaRightToBracket className="text-text-0 text-2xl mr-4" />
+							Logout
 						</div>
 					</div>
 					<div className="grid grid-cols-2 gap-5">
@@ -85,5 +114,7 @@ export default function Account() {
 				</div>
 			</div>
 		</>
+	) : (
+		<div className="text-8xl text-primary">You are not Logged In</div>
 	);
 }

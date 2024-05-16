@@ -4,6 +4,7 @@ import Buttom from "../components/Button";
 import TextInput from "../components/TextInput";
 import ImageInput from "../components/ImageInput";
 import { useForm } from "react-hook-form";
+import { addListing } from "../api/listings.js";
 import Button from "../components/Button";
 
 function NewListings() {
@@ -13,7 +14,10 @@ function NewListings() {
 		formState: { errors },
 	} = useForm();
 
-	const onSubmit = (data) => console.log(data);
+	const onSubmit = (data) => {
+		// console.log(data);
+		addListing(data, (progress) => console.log(progress));
+	};
 	return (
 		<>
 			<Navbar />
@@ -26,7 +30,7 @@ function NewListings() {
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					className="w-full"
-					action=""
+					action="/upload"
 					method="POST"
 					encType="multipart/form-data"
 				>
@@ -74,6 +78,7 @@ function NewListings() {
 						errors={errors}
 					/>
 					<input
+						formAction="/upload"
 						type="submit"
 						className={`bg-primary w-max px-5 rounded-xl cursor-pointer flex text-3xl text-text-0 font-semibold p-2 mt-5`}
 					/>

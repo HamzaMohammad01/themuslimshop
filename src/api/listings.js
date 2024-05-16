@@ -5,20 +5,15 @@ const getListings = () => {
 	return apiClient.get(endpoint);
 };
 const getListingById = (id) => apiClient.get(`${endpoint}/${id}`);
-const addListing = (listing, onUploadProgress) => {
+const addListing = async (listing, onUploadProgress) => {
 	const data = new FormData();
 	data.append("title", listing.title);
 	data.append("price", listing.price);
 	data.append("tags", listing.tags);
 	if (listing.discount) data.append("discount", listing.discount);
+	data.append("itemImage", listing.image[0]);
 
-	data.append("itemImage", {
-		name: "itemImage",
-		type: "image/jpeg",
-		uri: listing.uri,
-	});
-
-	return apiClient.post(endpoint, data, {
+	return await apiClient.post(endpoint + "/upload", data, {
 		onUploadProgress: (progress) =>
 			onUploadProgress(progress.loaded / progress.total),
 	});

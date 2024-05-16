@@ -6,6 +6,7 @@ import {
 	FaGear,
 	FaHeadset,
 	FaRegUser,
+	FaRightFromBracket,
 } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -42,10 +43,16 @@ export default function Navbar() {
 			<Link to={"/contact"}>
 				<FaHeadset className={iconStyle} />
 			</Link>
-			<Link to={"/account"}>
-				<FaRegUser
-					className={`${iconStyle} border-2 p-2 rounded-xl h-16 border-primary !mt-28 `}
-				/>
+			<Link to={localStorage.getItem("token") ? "/account" : "/login"}>
+				{localStorage.getItem("token") ? (
+					<FaRegUser
+						className={`${iconStyle} border-2 p-2 rounded-xl h-16 border-primary !mt-28 `}
+					/>
+				) : (
+					<FaRightFromBracket
+						className={`${iconStyle} border-2 p-2 rounded-xl h-16 border-primary !mt-28 `}
+					/>
+				)}
 			</Link>
 		</div>
 	);

@@ -7,7 +7,7 @@ export default function Footer() {
 			<img
 				src={layered_waves}
 				alt="layered waves"
-				className="w-full"
+				className="w-full h-16"
 				// style={{ width: "20vmin" }}
 			/>
 			<div className="text-text-0 font-primary text-center">

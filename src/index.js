@@ -11,6 +11,8 @@ import Title from "./components/Title";
 import Listings from "./pages/Listings";
 import NewListings from "./pages/NewListings";
 import ListingsDetails from "./pages/ListingsDetails";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -43,6 +45,14 @@ const router = reactRouterDom.createBrowserRouter([
 		path: "/listing-details",
 		element: <ListingsDetails />,
 	},
+	{
+		path: "/signup",
+		element: <Signup />,
+	},
+	{
+		path: "/login",
+		element: <Login />,
+	},
 ]);
 
 root.render(
@@ -52,4 +62,4 @@ root.render(
 	</React.StrictMode>
 );
 
-reportWebVitals(console.log);
+// reportWebVitals(console.log);
