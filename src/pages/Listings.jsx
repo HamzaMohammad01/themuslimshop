@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Buttom from "../components/Button";
-import Button from "../components/Button";
 import { getListings } from "../api/listings";
 import apiClient from "../api/client";
 import { useNavigate } from "react-router-dom";
 import AddToCartButton from "../components/AddToCartButton";
+import Button from "../components/Button";
+import Dropdown from "../components/Dropdown";
 
 export default function Listings() {
 	const navigate = useNavigate();
+
+	//GET Data
 	const [data, setData] = useState();
 	useEffect(() => {
 		loadListings();
@@ -16,8 +18,9 @@ export default function Listings() {
 	const loadListings = async () => {
 		const response = await getListings();
 		setData(response.data);
-		// console.log(data);
 	};
+
+	//navigation
 	const handleClick = (name, id) => {
 		navigate("/listing-details", { state: id });
 	};
@@ -25,8 +28,8 @@ export default function Listings() {
 	return data ? (
 		<>
 			<Navbar />
-
-			<div className="bg-black dark:bg-black text-lg flex flex-col text-primary px-10 ml-20">
+			{/* container */}
+			<div className="text-lg flex flex-col text-primary px-10 ml-20">
 				{/* menu */}
 				<ul className="flex space-x-5 mt-5 self-center">
 					<li className={menuStyle}>Men</li>
@@ -35,12 +38,15 @@ export default function Listings() {
 					<li className={menuStyle}>Tech</li>
 					<li className={menuStyle}>Watch</li>
 				</ul>
-				<div className="grid grid-cols-[repeat(auto-fill,560px)] gap-5 grid-rows-[auto auto auto]">
+
+				{/* grid item */}
+				<div className="grid grid-cols-[repeat(auto-fill,560px)] gap-6 grid-rows-[auto auto auto]">
 					{data.map((e) => {
 						return (
+							// grid container
 							<div
-								className="container border-2 border-primary mt-10  rounded-2xl p-5 grid grid-rows-subgrid"
-								style={{ gridRow: "1/4" }}
+								className="container border-2 border-primary mt-10  rounded-2xl p-5 grid grid-rows-subgrid justify-center"
+								style={{ gridRow: "1/3" }}
 							>
 								<img
 									onClick={() => handleClick(e.title, e._id)}
@@ -49,7 +55,7 @@ export default function Listings() {
 										.replace("api/", "")}${e.url}`}
 									alt=""
 									srcset=""
-									className="rounded-2xl"
+									className="rounded-2xl h-1/2 w-[550px]"
 								/>
 								<div className="">
 									<div className="title font-secondary text-text-0">
@@ -76,6 +82,7 @@ export default function Listings() {
 										item={e._id}
 										otherStyles={"mt-3"}
 									/>
+									<Dropdown />
 								</div>
 							</div>
 						);

@@ -13,6 +13,7 @@ import NewListings from "./pages/NewListings";
 import ListingsDetails from "./pages/ListingsDetails";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Search from "./components/Search";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

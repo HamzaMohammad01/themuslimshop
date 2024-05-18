@@ -5,6 +5,7 @@ import InfoSlider from "../components/InfoSlider";
 import star_struck from "../img/star_struck.png";
 import shopping_bags from "../img/shopping_bags.png";
 import Navbar from "../components/Navbar";
+import Search from "../components/Search";
 
 export default function Home() {
 	const menuStyle =
