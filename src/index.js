@@ -14,6 +14,9 @@ import ListingsDetails from "./pages/ListingsDetails";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Search from "./components/Search";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import ErrorPage from "./pages/ErrorPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -54,10 +57,27 @@ const router = reactRouterDom.createBrowserRouter([
 		path: "/login",
 		element: <Login />,
 	},
+	{
+		path: "/errorpage",
+		element: <ErrorPage />,
+	},
 ]);
 
 root.render(
 	<React.StrictMode>
+		<ToastContainer
+			position="top-center"
+			autoClose={500}
+			hideProgressBar
+			newestOnTop
+			closeOnClick={false}
+			theme="dark"
+			closeButton={false}
+			rtl={false}
+			draggable
+			className="custom-toast-container"
+			toastClassName="custom-toast"
+		/>
 		<Title />
 		<reactRouterDom.RouterProvider router={router} />
 	</React.StrictMode>

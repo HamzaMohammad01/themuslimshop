@@ -1,60 +1,75 @@
 import React, { useEffect, useState } from "react";
+
 import Navbar from "../components/Navbar";
-import Buttom from "../components/Button";
 import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import ImageInput from "../components/ImageInput";
+import Spinner from "../components/Spinner";
+import Quantity from "../components/Quantity";
 import { getListingById } from "../api/listings";
 import apiClient from "../api/client";
+import Search from "../components/Search";
+import AddToCartButton from "../components/AddToCartButton";
+
 import { useLocation } from "react-router-dom";
 
-export default function ListingsDetails() {
+export default function ListingDetails() {
 	const { state } = useLocation();
-	const [data, setData] = useState();
+	const [data, setData] = useState(null);
 	useEffect(() => {
-		loadListings();
+		loadListing();
 	}, []);
-	const loadListings = async () => {
+	const loadListing = async () => {
 		const response = await getListingById(state);
-		setData(response.data);
+		console.log(response);
+		if (response.ok) {
+			setData(response.data);
+		} else {
+			setData(null);
+		}
 	};
 
 	return data ? (
 		<>
 			<Navbar />
-
-			<div className="bg-black dark:bg-black text-lg text-primary px-10 ml-20 mt-14 h-svh grid grid-cols-2 gap-10">
-				<img
-					src={`${apiClient.getBaseURL().replace("api/", "")}${
-						data.url
-					}`}
-					className="w-full h-auto rounded-2xl border-2 border-text-0"
-					alt=""
-				/>
-				<div>
-					<div className="title font-secondary text-4xl text-text-0 mb-2">
-						{data.title}
-					</div>
-					<div className="flex items-center mb-4">
-						<div className="price text-6xl">{`$${
-							data.discount
-								? (
-										((100 - data.discount) / 100) *
-										data.price
-								  ).toFixed(2)
-								: data.price
-						}`}</div>
-						<div className="mrp ml-5">
-							<span className="line-through mr-2 text-text-300">{`MRP: ${data.price}`}</span>
-							<span className="text-text-0">{`(${data.discount}% off)`}</span>
+			<Search />
+			<div className="text-lg text-primary px-4 sm:px-6 lg:px-20 mx-auto mt-14 max-w-screen-xl ml-20 xs:ml-0">
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+					<img
+						src={`${apiClient.getBaseURL().replace("api/", "")}${
+							data.url
+						}`}
+						className="w-full h-auto rounded-2xl border-2 border-text-0"
+						alt={data.title}
+					/>
+					<div>
+						<div className="title font-secondary text-3xl sm:text-4xl text-text-0 mb-2">
+							{data.title}
+						</div>
+						<div className="flex items-center mb-4">
+							<div className="price text-4xl sm:text-6xl">{`$${
+								data.discount
+									? (
+											((100 - data.discount) / 100) *
+											data.price
+									  ).toFixed(2)
+									: data.price
+							}`}</div>
+							{data.discount && (
+								<div className="mrp ml-5">
+									<span className="line-through mr-2 text-text-300">{`MRP: $${data.price}`}</span>
+									<span className="text-text-0">{`(${data.discount}% off)`}</span>
+								</div>
+							)}
+						</div>
+						<div className="flex flex-col space-y-4">
+							<Quantity />
+							<AddToCartButton item={data._id} />
+							<Button text="Buy Now" />
 						</div>
 					</div>
-					<Button text="Add to Cart" />
-					<Button text="Buy Now" />
 				</div>
 			</div>
 		</>
 	) : (
-		<div>Loading</div>
+		<Spinner />
 	);
 }

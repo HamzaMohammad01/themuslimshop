@@ -1,30 +1,26 @@
 import React from "react";
 import hundred_points from "../img/hundred_points.png";
+import apiClient from "../api/client";
+import { useNavigate } from "react-router-dom";
 
 export default function InfoSlider({
 	text = "Muslim must-haves",
 	addClassName,
 	imageSrc = hundred_points,
+	data,
 }) {
-	const data = [
-		{ url: "https://source.unsplash.com/macbook-y0_vFxOHayg" },
-		{
-			url: "https://source.unsplash.com/apple-products-on-table-tdMu8W9NTnY",
-		},
-		{
-			url: "https://source.unsplash.com/black-macbook-near-black-iphone-7-plus-and-black-apple-watch-HY3l4IeOc3E",
-		},
-		{
-			url: "https://source.unsplash.com/apple-products-on-table-tdMu8W9NTnY",
-		},
-		{ url: "https://source.unsplash.com/macbook-y0_vFxOHayg" },
-	];
+	const navigate = useNavigate();
+	const handleOnClick = (id) => {
+		navigate("/listing-details", { state: id });
+	};
 	return (
 		<div className={`${addClassName} mt-10`}>
 			{/* title */}
 			<div className="flex flex-row items-center">
-				<div className="text-primary text-6xl font-accent">{text}</div>
-				<img src={imageSrc} alt="" className="h-32" />
+				<div className="text-primary text-6xl font-accent xs:text-4xl">
+					{text}
+				</div>
+				<img src={imageSrc} alt="" className="h-32 xs:h-28" />
 			</div>
 			<swiper-container
 				style={{
@@ -39,9 +35,26 @@ export default function InfoSlider({
 				slides-per-view={3}
 				navigation="true"
 				className="mySwiper"
+				breakpoints={JSON.stringify({
+					350: {
+						slidesPerView: 1,
+					},
+					868: {
+						slidesPerView: 2,
+						spaceBetween: 20,
+					},
+					1260: {
+						slidesPerView: 3,
+						spaceBetween: 20,
+					},
+				})}
 			>
 				{data.map((e) => (
-					<swiper-slide className="border-2 border-primary w-1/4 h-1/3 rounded-xl bg-clip-border mr-5">
+					<swiper-slide
+						className="border-2 border-primary w-1/4 h-1/3 rounded-xl bg-clip-border mr-5 cursor-pointer"
+						onClick={() => handleOnClick(e._id)}
+						key={e._id}
+					>
 						<div
 							style={{
 								backgoundClip: "clip",
@@ -49,7 +62,9 @@ export default function InfoSlider({
 							}}
 						>
 							<img
-								src={e.url}
+								src={`${apiClient
+									.getBaseURL()
+									.replace("api/", "")}${e.url}`}
 								alt=""
 								className="object-none h-96 rounded-xl"
 							/>

@@ -4,8 +4,14 @@ const endpoint = "listings";
 const getListings = () => {
 	return apiClient.get(endpoint);
 };
+const searchListings = async (search_query) => {
+	return await apiClient.get(
+		endpoint + "/search?search_query=" + search_query
+	);
+};
+
 const getListingById = (id) => apiClient.get(`${endpoint}/${id}`);
-const addListing = async (listing, onUploadProgress) => {
+const addListing = async (listing, onUploadProgress, authToken) => {
 	const data = new FormData();
 	data.append("title", listing.title);
 	data.append("price", listing.price);
@@ -16,6 +22,8 @@ const addListing = async (listing, onUploadProgress) => {
 	return await apiClient.post(endpoint + "/upload", data, {
 		onUploadProgress: (progress) =>
 			onUploadProgress(progress.loaded / progress.total),
+
+		headers: { "x-auth-token": authToken },
 	});
 };
 const updateListing = (id, data) => {
@@ -32,4 +40,5 @@ export {
 	addListing,
 	updateListing,
 	deleteListing,
+	searchListings,
 };

@@ -1,9 +1,9 @@
-// ImageInput.jsx
 import React from "react";
 import { FaRegImage } from "react-icons/fa6";
 import Button from "./Button";
 
 export default function ImageInput({
+	description,
 	width = "w-full md:w-9/12",
 	register,
 	errors,

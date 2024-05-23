@@ -3,7 +3,7 @@ import { FaChevronCircleRight } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import { addToHome, removeFromHome, getHomeItems } from "../api/home";
 
-export default function Dropdown({ text = "Add To", items }) {
+export default function Dropdown({ text = "Add To", items, setItems }) {
 	const [open, setOpen] = useState(false);
 	const [data, setData] = useState(null);
 
