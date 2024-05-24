@@ -52,7 +52,6 @@ export default function InfoSlider({
 					<swiper-slide
 						className="border-2 border-primary w-1/4 h-1/3 rounded-xl bg-clip-border mr-5 cursor-pointer"
 						onClick={() => handleOnClick(e._id)}
-						key={e._id}
 					>
 						<div
 							style={{

@@ -39,7 +39,6 @@ export default function Carousal({ data }) {
 							position: "relative",
 							cursor: "pointer",
 						}}
-						lazy="true"
 						onClick={() => handleOnClick(e._id)}
 						key={e._id}
 					>
