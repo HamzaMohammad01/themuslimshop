@@ -1,6 +1,4 @@
 import React from "react";
-import "/Users/hamza/Documents/B/Programming Data/the-muslim-shop/src/components/Carousal.jsx";
-import apiClient from "../api/client";
 import { useNavigate } from "react-router-dom";
 
 export default function Carousal({ data }) {
